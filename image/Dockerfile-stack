@@ -36,7 +36,7 @@ COPY ./project /project
 COPY ./config /config
 
 RUN npm install npm@latest
-RUN chown -R default:root "/opt/app-root/src/.npm"
+# RUN chown -R default:root "/opt/app-root/src/.npm"
 
 RUN chown -R default:root /project
 
@@ -44,6 +44,12 @@ WORKDIR /project
 USER default
 RUN mkdir -p /project/user-app/node_modules
 RUN npm install
+
+USER root
+
+RUN rm -rf /opt/app-root/src/
+
+USER default
 
 WORKDIR /project/user-app
 
